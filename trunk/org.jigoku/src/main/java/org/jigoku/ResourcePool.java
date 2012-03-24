@@ -12,41 +12,41 @@ import org.jigoku.utils.FileLineReader;
 public class ResourcePool {
 	private static final int MEANINGS_INDEX_KANJIOFWORDSINDEX = 6;
 
-    private static final int MEANINGS_INDEX_JLPT = 5;
+	private static final int MEANINGS_INDEX_JLPT = 5;
 
-    private static final int MEANINGS_INDEX_KANJITOKANA = 4;
+	private static final int MEANINGS_INDEX_KANJITOKANA = 4;
 
-    private static final int MEANINGS_INDEX_STROKECOUNT = 3;
+	private static final int MEANINGS_INDEX_STROKECOUNT = 3;
 
-    private static final int MEANINGS_INDEX_GRADE = 2;
+	private static final int MEANINGS_INDEX_GRADE = 2;
 
-    private static final int MEANINGS_INDEX_BUSHU = 1;
+	private static final int MEANINGS_INDEX_BUSHU = 1;
 
-    private static final int MEANINGS_INDEX_KANJI = 0;
+	private static final int MEANINGS_INDEX_KANJI = 0;
 
-    private static final int KANJIINFOS_INDEX_MEANINGS = 7;
+	private static final int KANJIINFOS_INDEX_MEANINGS = 7;
 
-    private static final int WORDPARTS_INDEX_KANJINUMBER = 5;
+	private static final int WORDPARTS_INDEX_KANJINUMBER = 5;
 
-    private static final int WORDPARTS_INDEX_FURIGANA = 3;
+	private static final int WORDPARTS_INDEX_FURIGANA = 3;
 
-    private static final int WORDPARTS_INDEX_CHARACTER = 2;
+	private static final int WORDPARTS_INDEX_CHARACTER = 2;
 
-    private static final int WORDPARTS_INDEX_DISPLAY = 4;
+	private static final int WORDPARTS_INDEX_DISPLAY = 4;
 
-    private static final int VOCABULARY_INDEX_FIRSTCHARROW = 5;
+	private static final int VOCABULARY_INDEX_FIRSTCHARROW = 5;
 
-    private static final int VOCABULARY_INDEX_WORDINHIRAGANA = 1;
+	private static final int VOCABULARY_INDEX_WORDINHIRAGANA = 1;
 
-    private static final int VOCABULARY_INDEX_WORDINKANJI= 0;
+	private static final int VOCABULARY_INDEX_WORDINKANJI = 0;
 
-    private static final int VOCABULARY_INDEX_MEANING = 2;
-
-    @Getter
-    private ArrayList<FlashCard> flashCards = new ArrayList<FlashCard>();
+	private static final int VOCABULARY_INDEX_MEANING = 2;
 
 	@Getter
-	private List<Kanji> kanjiList = new ArrayList<Kanji>();
+	private final ArrayList<FlashCard> flashCards = new ArrayList<FlashCard>();
+
+	@Getter
+	private final List<Kanji> kanjiList = new ArrayList<Kanji>();
 
 	public ResourcePool() {
 		initFlashCardsFromVocabulary("vocabulary.csv");
@@ -54,7 +54,7 @@ public class ResourcePool {
 		initKanjiInfos("kanji.csv");
 	}
 
-	private void initFlashCardsFromVocabulary(String fileName) {
+	private void initFlashCardsFromVocabulary(final String fileName) {
 		FileLineReader flr = new FileLineReader(fileName);
 		ArrayList<String> lines = flr.getLines();
 
@@ -77,14 +77,14 @@ public class ResourcePool {
 
 			String[] fields = lines.get(i).split(";");
 
-			FlashCard flashCard = new FlashCard(fields[VOCABULARY_INDEX_WORDINKANJI], fields[VOCABULARY_INDEX_MEANING], 
-                    fields[VOCABULARY_INDEX_FIRSTCHARROW]);
+			FlashCard flashCard = new FlashCard(fields[VOCABULARY_INDEX_WORDINKANJI], fields[VOCABULARY_INDEX_MEANING],
+					fields[VOCABULARY_INDEX_FIRSTCHARROW]);
 			flashCard.setSolution(fields[VOCABULARY_INDEX_WORDINHIRAGANA]);
 			flashCards.add(flashCard);
 		}
 	}
 
-	private void initWordPartsForFlashCards(String fileName) {
+	private void initWordPartsForFlashCards(final String fileName) {
 		FileLineReader flr = new FileLineReader(fileName);
 		ArrayList<String> lines = flr.getLines();
 
@@ -124,15 +124,14 @@ public class ResourcePool {
 
 						// kana or ～
 
-					    displaychars.add(new JapChar(fields[WORDPARTS_INDEX_CHARACTER],
-								StringUtils.EMPTY, 0));
+						displaychars.add(new JapChar(fields[WORDPARTS_INDEX_CHARACTER], StringUtils.EMPTY, 0));
 
 					} else {
 
 						// kanji
 
-						displaychars.add(new JapChar(fields[WORDPARTS_INDEX_CHARACTER], fields[WORDPARTS_INDEX_FURIGANA],
-								new Integer(fields[WORDPARTS_INDEX_KANJINUMBER])));
+						displaychars.add(new JapChar(fields[WORDPARTS_INDEX_CHARACTER],
+								fields[WORDPARTS_INDEX_FURIGANA], new Integer(fields[WORDPARTS_INDEX_KANJINUMBER])));
 					}
 
 					// ignore ～ for the solution
@@ -149,11 +148,11 @@ public class ResourcePool {
 		}
 	}
 
-	private boolean isDisplayOnlyKana(String field) {
+	private boolean isDisplayOnlyKana(final String field) {
 		return field.equals("display") || field.equals("displayKanji");
 	}
 
-	private void initKanjiInfos(String fileName) {
+	private void initKanjiInfos(final String fileName) {
 		FileLineReader flr = new FileLineReader(fileName);
 		ArrayList<String> lines = flr.getLines();
 
@@ -175,8 +174,7 @@ public class ResourcePool {
 
 			String[] fields = lines.get(i).split(";");
 
-			List<String> meanings = Arrays.asList(StringUtils.split(fields[KANJIINFOS_INDEX_MEANINGS],
-					"{}"));
+			List<String> meanings = Arrays.asList(StringUtils.split(fields[KANJIINFOS_INDEX_MEANINGS], "{}"));
 
 			kanjiList.add(new Kanji(fields[MEANINGS_INDEX_KANJI], new Integer(fields[MEANINGS_INDEX_BUSHU]),
 					new Integer(fields[MEANINGS_INDEX_GRADE]), new Integer(fields[MEANINGS_INDEX_STROKECOUNT]),

@@ -2,19 +2,32 @@ package org.jigoku;
 
 import java.util.List;
 
-public class JiGoku {
-	protected User user;
+/**
+ * Main program.
+ */
+public final class JiGoku {
+	private static final int LENGTH_OF_RUN = 5;
 
-	// get all cards
+	/**
+	 * Prevent instantiation.
+	 */
+	private JiGoku() {
+	}
 
-	public static void main(String[] args) {
+	/**
+	 * Main program.
+	 * 
+	 * @param args
+	 *            command line arguments.
+	 */
+	public static void main(final String[] args) {
 
 		ResourcePool resourcePool = new ResourcePool();
 
-		List<Kanji> testedKanji = resourcePool.getKanjiList().subList(0, 5);
+		List<Kanji> testedKanji = resourcePool.getKanjiList().subList(0, LENGTH_OF_RUN);
 
-		final List<FlashCard> testCards = (new CardStack(testedKanji,
-				resourcePool.getFlashCards(), 5)).getFlashcards();
+		final List<FlashCard> testCards = (new CardStack(testedKanji, resourcePool.getFlashCards(), LENGTH_OF_RUN))
+				.getFlashcards();
 		final Test test = new Test(testCards);
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
