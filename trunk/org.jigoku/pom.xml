@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.jigoku</groupId>
+	<artifactId>org.jigoku</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>JiGoku</name>
+	<description>Tool to boost japanese reading skills</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+			<scope>compile</scope>
+		</dependency>
+	    <dependency>
+	        <groupId>commons-lang</groupId>
+	        <artifactId>commons-lang</artifactId>
+	        <version>2.4</version>
+	    </dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<!-- This make the following line of code possible -->
+							<!-- ClassInThisProject.class.getPackage().getImplementationVersion() -->
+							<mainClass>org.jigoku.JiGoku</mainClass>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>.</Class-Path>
+						</manifestEntries>
+					</archive>
+					<descriptor>src/main/assembly/jar.xml</descriptor>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
