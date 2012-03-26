@@ -18,11 +18,12 @@ public class Test implements Observable {
 	private final List<FlashCard> errors = new ArrayList<FlashCard>();
 	@Getter
 	private FlashCard card;
+	@Getter
+	private int successCount = 0;
 
 	private final List<FlashCard> cards;
 	private final BaseRomajiMapper romajimapper = new OchaRomajiMapper();
 	private final List<Observer> observers = new ArrayList<Observer>();
-	private int successCount = 0;
 	private int errorCount = 0;
 
 	public Test(final List<FlashCard> testCards) {
@@ -77,10 +78,6 @@ public class Test implements Observable {
 
 	public String getTranslation() {
 		return card.getHint();
-	}
-
-	public int getSucceeded() {
-		return successCount;
 	}
 
 	/**

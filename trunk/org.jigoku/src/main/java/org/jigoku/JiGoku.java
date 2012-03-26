@@ -2,6 +2,8 @@ package org.jigoku;
 
 import java.util.List;
 
+import org.jigoku.display.TestdisplayControl;
+
 /**
  * Main program.
  */

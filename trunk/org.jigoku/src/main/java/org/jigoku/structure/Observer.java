@@ -1,6 +1,13 @@
 package org.jigoku.structure;
 
-
+/**
+ * Observer pattern.
+ */
 public interface Observer {
-	public void sendNotify(Observable observable);
+	/**
+	 * Callback called to inform that a change has occurred.
+	 * 
+	 * @param observable
+	 */
+	void sendNotify(final Observable observable);
 }
