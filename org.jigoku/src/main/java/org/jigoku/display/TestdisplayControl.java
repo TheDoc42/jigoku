@@ -1,14 +1,14 @@
-package org.jigoku;
+package org.jigoku.display;
 
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 
 import org.apache.commons.lang.StringUtils;
+import org.jigoku.FlashCard;
+import org.jigoku.Test;
 import org.jigoku.structure.Observable;
 import org.jigoku.structure.Observer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TestdisplayControl extends TestDisplay implements Observer {
 	public static final long serialVersionUID = 2L;
@@ -20,7 +20,7 @@ public class TestdisplayControl extends TestDisplay implements Observer {
 		// initComponents();
 		this.test = test;
 		updateDisplay(this.test);
-		testProgress.setMaximum(this.test.getLength());
+		getTestProgressDisplay().setMaximum(this.test.getLength());
 		this.test.addObserver(this);
 	}
 
@@ -63,8 +63,8 @@ public class TestdisplayControl extends TestDisplay implements Observer {
 		setHint(test.getHint());
 		setAnswer(StringUtils.EMPTY);
 		setTranslation(test.getTranslation());
-		testProgress.setValue(test.getIndex());
-		successRate.setValue(test.getSuccessrate());
+		getTestProgressDisplay().setValue(test.getIndex());
+		getSuccessRateDisplay().setValue(test.getSuccessrate());
 	}
 
 	public void sendNotify(final Observable obs) {
@@ -82,28 +82,28 @@ public class TestdisplayControl extends TestDisplay implements Observer {
 	@Override
 	public void answerKeyTyped(final java.awt.event.KeyEvent evt) {
 		if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-			test.giveAnswer(answer.getText());
+			test.giveAnswer(getAnswer());
 		}
 	}
 
 	public String getAnswer() {
-		return answer.getText();
+		return getAnswerDisplay().getText();
 	}
 
 	public void setAnswer(final String answer) {
-		this.answer.setText(answer);
+		getAnswerDisplay().setText(answer);
 	}
 
 	public void setHint(final String hint) {
-		this.hint.setText(hint);
+		getHintDisplay().setText(hint);
 	}
 
 	public void setQuestion(final String question) {
-		this.question.setText(question);
+		getQuestionDisplay().setText(question);
 	}
 
 	public void setTranslation(final String translation) {
-		this.translation.setText(translation);
+		getTranslationDisplay().setText(translation);
 	}
 
 }

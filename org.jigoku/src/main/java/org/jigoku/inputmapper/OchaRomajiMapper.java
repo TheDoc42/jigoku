@@ -3,13 +3,13 @@ package org.jigoku.inputmapper;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-
 public class OchaRomajiMapper extends BaseRomajiMapper {
 	public OchaRomajiMapper() {
 		super();
 		addSpecificMappings();
 	}
 
+	@Override
 	protected void addSpecificMappings() {
 		OchaRomajiMapper.translator.put("chi", "ち");
 		OchaRomajiMapper.translator.put("tsu", "つ");
@@ -33,9 +33,9 @@ public class OchaRomajiMapper extends BaseRomajiMapper {
 		OchaRomajiMapper.translator.put("ttsu", "っつ");
 		OchaRomajiMapper.translator.put("tte", "って");
 		OchaRomajiMapper.translator.put("tto", "っと");
-		
-		//modified characters
-		
+
+		// modified characters
+
 		OchaRomajiMapper.translator.put("gga", "っが");
 		OchaRomajiMapper.translator.put("ggi", "っぎ");
 		OchaRomajiMapper.translator.put("ggu", "っぐ");
@@ -61,8 +61,8 @@ public class OchaRomajiMapper extends BaseRomajiMapper {
 		OchaRomajiMapper.translator.put("ppu", "っぷ");
 		OchaRomajiMapper.translator.put("ppe", "っぺ");
 		OchaRomajiMapper.translator.put("ppo", "っぽ");
-		
-		//composites
+
+		// composites
 
 		OchaRomajiMapper.translator.put("kkya", "っきゃ");
 		OchaRomajiMapper.translator.put("ssha", "っしゃ");
@@ -94,20 +94,4 @@ public class OchaRomajiMapper extends BaseRomajiMapper {
 		OchaRomajiMapper.translator.put("bbyo", "っびょ");
 		OchaRomajiMapper.translator.put("ppyo", "っぴょ");
 	}
-
-	public static void main(String args[]) {
-		
-		String input ="kakkoisannosukke";
-		OchaRomajiMapper mapper = new OchaRomajiMapper();
-		String output = mapper.map(input);
-		System.out.println(output);
-		
-	    JFrame frame = new JFrame("Hello Swing");
-	    JLabel label = new JLabel("<html>" + output + "<br><table><tr><td>かん</td><td>じ</td><td>ど</td></tr><tr><td><font size=+3>漢</font></td><td><font size=+3>字</font></td><td><font size=+3>度</font></td></tr></table></html>");
-	    frame.add(label);
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.setSize(300, 100);
-	    frame.setVisible(true);
-	}
-
 }

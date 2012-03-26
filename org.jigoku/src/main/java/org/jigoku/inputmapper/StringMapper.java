@@ -1,5 +1,8 @@
 package org.jigoku.inputmapper;
 
+/**
+ * Maps a string input from romaji to hiragana.
+ */
 public interface StringMapper {
-	public String map(String input);
+	String map(final String input);
 }

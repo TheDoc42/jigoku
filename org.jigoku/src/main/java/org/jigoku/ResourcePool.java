@@ -9,38 +9,61 @@ import lombok.Getter;
 import org.apache.commons.lang.StringUtils;
 import org.jigoku.utils.FileLineReader;
 
+/**
+ * Prepares a list of kanjis and flashcards extracted from the resource files.
+ */
 public class ResourcePool {
-	private static final int MEANINGS_INDEX_KANJIOFWORDSINDEX = 6;
 
-	private static final int MEANINGS_INDEX_JLPT = 5;
+	// 0 - Kanji
+	// 1 - Bushu
+	// 2 - Grade
+	// 3 - StrokeCount
+	// 4 - kanji to kana
+	// 5 - JLPT
+	// 6 - KanjiOfWords index
+	// 7 - Meaning
+	// 8 - Knowledge
+	// 9 - last test
+	// 10 - first successful test
 
-	private static final int MEANINGS_INDEX_KANJITOKANA = 4;
-
-	private static final int MEANINGS_INDEX_STROKECOUNT = 3;
-
-	private static final int MEANINGS_INDEX_GRADE = 2;
-
-	private static final int MEANINGS_INDEX_BUSHU = 1;
-
-	private static final int MEANINGS_INDEX_KANJI = 0;
-
+	private static final int KANJIINFOS_INDEX_KANJI = 0;
+	private static final int KANJIINFOS_INDEX_BUSHU = 1;
+	private static final int KANJIINFOS_INDEX_GRADE = 2;
+	private static final int KANJIINFOS_INDEX_STROKECOUNT = 3;
+	private static final int KANJIINFOS_INDEX_KANJITOKANA = 4;
+	private static final int KANJIINFOS_INDEX_JLPT = 5;
+	private static final int KANJIINFOS_INDEX_KANJIOFWORDSINDEX = 6;
 	private static final int KANJIINFOS_INDEX_MEANINGS = 7;
 
-	private static final int WORDPARTS_INDEX_KANJINUMBER = 5;
-
-	private static final int WORDPARTS_INDEX_FURIGANA = 3;
+	// 0 - row
+	// 1 - position
+	// 2 - character
+	// 3 - furigana
+	// 4 - display
+	// 5 - Kanji Number
 
 	private static final int WORDPARTS_INDEX_CHARACTER = 2;
-
+	private static final int WORDPARTS_INDEX_FURIGANA = 3;
 	private static final int WORDPARTS_INDEX_DISPLAY = 4;
+	private static final int WORDPARTS_INDEX_KANJINUMBER = 5;
 
-	private static final int VOCABULARY_INDEX_FIRSTCHARROW = 5;
-
-	private static final int VOCABULARY_INDEX_WORDINHIRAGANA = 1;
+	// 0 - wordInKanji
+	// 1 - WordinHiragana
+	// 2 - Meaning
+	// 3 - JLPT
+	// 4 - ambiguous
+	// 5 - firstcharrow
+	// 6 - last test
+	// 7 - first successful test
+	// 8 - Tested Kanji
+	// 9 - Most Elementary Kanji
+	// 10 - LastTestNumber
+	// 11 - original row
 
 	private static final int VOCABULARY_INDEX_WORDINKANJI = 0;
-
+	private static final int VOCABULARY_INDEX_WORDINHIRAGANA = 1;
 	private static final int VOCABULARY_INDEX_MEANING = 2;
+	private static final int VOCABULARY_INDEX_FIRSTCHARROW = 5;
 
 	@Getter
 	private final ArrayList<FlashCard> flashCards = new ArrayList<FlashCard>();
@@ -62,18 +85,6 @@ public class ResourcePool {
 
 		for (int i = 1; i < lines.size(); i++) {
 			// let's cut the line in pieces
-			// 0 - wordInKanji
-			// 1 - WordinHiragana
-			// 2 - Meaning
-			// 3 - JLPT
-			// 4 - ambiguous
-			// 5 - firstcharrow
-			// 6 - last test
-			// 7 - first successful test
-			// 8 - Tested Kanji
-			// 9 - Most Elementary Kanji
-			// 10 - LastTestNumber
-			// 11 - original row
 
 			String[] fields = lines.get(i).split(";");
 
@@ -89,13 +100,6 @@ public class ResourcePool {
 		ArrayList<String> lines = flr.getLines();
 
 		// we skip the first line, which contains the header information
-
-		/*
-		 * 
-		 * for (int i=1; i<lines.size(); i++) { //let's cut the line in pieces
-		 * // 0 - row // 1 - position // 2 - character // 3 - furigana // 4 -
-		 * display // 5 - Kanji Number }
-		 */
 
 		for (FlashCard flashcard : flashCards) {
 			try {
@@ -148,10 +152,6 @@ public class ResourcePool {
 		}
 	}
 
-	private boolean isDisplayOnlyKana(final String field) {
-		return field.equals("display") || field.equals("displayKanji");
-	}
-
 	private void initKanjiInfos(final String fileName) {
 		FileLineReader flr = new FileLineReader(fileName);
 		ArrayList<String> lines = flr.getLines();
@@ -159,27 +159,20 @@ public class ResourcePool {
 		// we skip the first line, which contains the header information
 
 		for (int i = 1; i < lines.size(); i++) {
-			// let's cut the line in pieces
-			// 0 - Kanji
-			// 1 - Bushu
-			// 2 - Grade
-			// 3 - StrokeCount
-			// 4 - kanji to kana
-			// 5 - JLPT
-			// 6 - KanjiOfWords index
-			// 7 - Meaning
-			// 8 - Knowledge
-			// 9 - last test
-			// 10 - first successful test
 
 			String[] fields = lines.get(i).split(";");
 
 			List<String> meanings = Arrays.asList(StringUtils.split(fields[KANJIINFOS_INDEX_MEANINGS], "{}"));
 
-			kanjiList.add(new Kanji(fields[MEANINGS_INDEX_KANJI], new Integer(fields[MEANINGS_INDEX_BUSHU]),
-					new Integer(fields[MEANINGS_INDEX_GRADE]), new Integer(fields[MEANINGS_INDEX_STROKECOUNT]),
-					new Integer(fields[MEANINGS_INDEX_KANJITOKANA]), new Integer(fields[MEANINGS_INDEX_JLPT]),
-					new Integer(fields[MEANINGS_INDEX_KANJIOFWORDSINDEX]), meanings));
+			kanjiList.add(new Kanji(fields[KANJIINFOS_INDEX_KANJI], new Integer(fields[KANJIINFOS_INDEX_BUSHU]),
+					new Integer(fields[KANJIINFOS_INDEX_GRADE]), new Integer(fields[KANJIINFOS_INDEX_STROKECOUNT]),
+					new Integer(fields[KANJIINFOS_INDEX_KANJITOKANA]), new Integer(fields[KANJIINFOS_INDEX_JLPT]),
+					new Integer(fields[KANJIINFOS_INDEX_KANJIOFWORDSINDEX]), meanings));
 		}
 	}
+
+	private boolean isDisplayOnlyKana(final String field) {
+		return field.equals("display") || field.equals("displayKanji");
+	}
+
 }
