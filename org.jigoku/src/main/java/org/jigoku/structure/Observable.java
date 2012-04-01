@@ -7,14 +7,14 @@ public interface Observable {
 	/**
 	 * Add an object to the observer's list.
 	 * 
-	 * @param observer
+	 * @param observer usually self
 	 */
 	void addObserver(final Observer observer);
 
 	/**
 	 * Remove an object form the observer's list.
 	 * 
-	 * @param observer
+	 * @param observer usually self
 	 */
 	void removeObserver(final Observer observer);
 

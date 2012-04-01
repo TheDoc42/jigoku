@@ -1,12 +1,11 @@
 package org.jigoku.inputmapper;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 public class RomajiMapperTest {
 	@Test
-	public void circularity() {
+	public void translateFromRomaji() {
 
 		String input = "kakkoisannosukke";
 

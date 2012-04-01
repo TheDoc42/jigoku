@@ -1,8 +1,5 @@
 package org.jigoku.inputmapper;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 public class OchaRomajiMapper extends BaseRomajiMapper {
 	public OchaRomajiMapper() {
 		super();
@@ -15,7 +12,6 @@ public class OchaRomajiMapper extends BaseRomajiMapper {
 		OchaRomajiMapper.translator.put("tsu", "つ");
 		OchaRomajiMapper.translator.put("fu", "ふ");
 
-		OchaRomajiMapper.translator.put("ji", "じ");
 		OchaRomajiMapper.translator.put("ji", "じ");
 
 		OchaRomajiMapper.translator.put("kka", "っか");

@@ -47,15 +47,15 @@ public class CardStack {
 		// choose cards
 		List<FlashCard> cards = Randomizer.shuffle(cardPool);
 		int cardsCount = 0;
-		for (int i = 0; i < cards.size(); i++) {
-			if (cards.get(i).getContents().contains(kanjiList.get(0).getKanji())) {
-				flashcards.add(cards.get(i));
-				cardsCount++;
-				if (cardsCount >= stackSize) {
-					break;
-				}
-			}
-		}
+        for (FlashCard card : cards) {
+            if (card.getContents().contains(kanjiList.get(0).getKanji())) {
+                flashcards.add(card);
+                cardsCount++;
+                if (cardsCount >= stackSize) {
+                    break;
+                }
+            }
+        }
 	}
 
 	/**

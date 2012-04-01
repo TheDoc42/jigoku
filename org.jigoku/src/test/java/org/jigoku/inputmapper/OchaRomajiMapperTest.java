@@ -7,7 +7,7 @@ import org.junit.Test;
 public class OchaRomajiMapperTest {
 
 	@Test
-	public void circularity() {
+	public void translateFromRomaji() {
 		String input = "kakkoisannosukke";
 
 		OchaRomajiMapper mapper = new OchaRomajiMapper();

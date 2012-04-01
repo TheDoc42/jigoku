@@ -7,7 +7,7 @@ public interface Observer {
 	/**
 	 * Callback called to inform that a change has occurred.
 	 * 
-	 * @param observable
+	 * @param observable usually self
 	 */
 	void sendNotify(final Observable observable);
 }
