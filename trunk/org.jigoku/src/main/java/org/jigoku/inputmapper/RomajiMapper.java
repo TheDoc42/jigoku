@@ -3,9 +3,6 @@ package org.jigoku.inputmapper;
 import java.util.HashMap;
 import java.util.Set;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 @Deprecated
 public class RomajiMapper {
 	protected HashMap<String, String> romajiToKana;
@@ -147,35 +144,35 @@ public class RomajiMapper {
 	}
 
 	public String map(final String input) {
-		String needle = "";
+		String needle;
 		StringBuilder output = new StringBuilder();
-		int maxkeylength = 0;
+		int maxKeyLength = 0;
 
 		Set<String> keys = romajiToKana.keySet();
 		for (String string : keys) {
-			if (string.length() > maxkeylength) {
-				maxkeylength = string.length();
+			if (string.length() > maxKeyLength) {
+				maxKeyLength = string.length();
 			}
 		}
 
 		int index = 0;
 
-		nextstringbit: while (index < input.length()) {
+		nextStringBit: while (index < input.length()) {
 
 			// check the matches in decreasing lengths
-			int restlength = input.length() - index;
-			int testlength = maxkeylength;
+			int restLength = input.length() - index;
+			int testLength = maxKeyLength;
 
-			while (testlength > 0) {
-				if (restlength >= testlength) {
-					needle = input.substring(index, index + testlength);
+			while (testLength > 0) {
+				if (restLength >= testLength) {
+					needle = input.substring(index, index + testLength);
 					if (romajiToKana.containsKey(needle)) {
 						output.append(romajiToKana.get(needle));
-						index += testlength;
-						continue nextstringbit;
+						index += testLength;
+						continue nextStringBit;
 					}
 				}
-				testlength--;
+				testLength--;
 			}
 
 			// character not found... illegal entry;
