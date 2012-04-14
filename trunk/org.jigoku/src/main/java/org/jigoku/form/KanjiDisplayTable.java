@@ -7,6 +7,8 @@ import lombok.Getter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.TableCursor;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -98,7 +100,7 @@ public class KanjiDisplayTable extends Dialog {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 
-		table = new Table(scrolledComposite, SWT.BORDER | SWT.FULL_SELECTION);
+		table = new Table(scrolledComposite, SWT.BORDER | SWT.MULTI);
 		table.setLinesVisible(true);
 
 		TableColumn tableColumnOne = new TableColumn(table, SWT.NONE);
@@ -151,7 +153,50 @@ public class KanjiDisplayTable extends Dialog {
 		tableColumn_10.setText("One");
 		tableColumn_10.setResizable(false);
 
-		TableCursor tableCursor = new TableCursor(table, SWT.NONE);
+		final TableCursor tableCursor = new TableCursor(table, SWT.NONE);
+
+		// Hide the TableCursor when the user hits the "CTRL" or "SHIFT" key.
+		// This alows the user to select multiple items in the table.
+		tableCursor.addKeyListener(new KeyAdapter() {
+			public void keyPressed(final KeyEvent e) {
+				if (e.keyCode == SWT.CTRL || e.keyCode == SWT.SHIFT || (e.stateMask & SWT.CONTROL) != 0
+						|| (e.stateMask & SWT.SHIFT) != 0) {
+					tableCursor.setVisible(false);
+				}
+			}
+		});
+		// Show the TableCursor when the user releases the "SHIFT" or "CTRL"
+		// key.
+		// This signals the end of the multiple selection task.
+		table.addKeyListener(new KeyAdapter() {
+			public void keyReleased(final KeyEvent e) {
+				if (e.keyCode == SWT.CONTROL && (e.stateMask & SWT.SHIFT) != 0) {
+					return;
+				}
+				if (e.keyCode == SWT.SHIFT && (e.stateMask & SWT.CONTROL) != 0) {
+					return;
+				}
+				if (e.keyCode != SWT.CONTROL && (e.stateMask & SWT.CONTROL) != 0) {
+					return;
+				}
+				if (e.keyCode != SWT.SHIFT && (e.stateMask & SWT.SHIFT) != 0) {
+					return;
+				}
+
+				TableItem[] selection = table.getSelection();
+				TableItem row;
+				if (selection.length == 0) {
+					row = table.getItem(table.getTopIndex());
+				} else {
+					row = selection[0];
+				}
+				table.showItem(row);
+				tableCursor.setSelection(row, 0);
+				tableCursor.setVisible(true);
+				tableCursor.setFocus();
+			}
+		});
+
 		scrolledComposite.setContent(table);
 		scrolledComposite.setMinSize(new Point(470, 85));
 
