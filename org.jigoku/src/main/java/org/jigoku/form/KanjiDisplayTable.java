@@ -1,5 +1,6 @@
 package org.jigoku.form;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
@@ -103,60 +104,20 @@ public class KanjiDisplayTable extends Dialog {
 		table = new Table(scrolledComposite, SWT.BORDER | SWT.MULTI);
 		table.setLinesVisible(true);
 
-		TableColumn tableColumnOne = new TableColumn(table, SWT.NONE);
-		tableColumnOne.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumnOne.setText("One");
-		tableColumnOne.setResizable(false);
+		List<TableColumn> tableColumns = new ArrayList<TableColumn>();
 
-		TableColumn tableColumnTwo = new TableColumn(table, SWT.NONE);
-		tableColumnTwo.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumnTwo.setText("Two");
-		tableColumnTwo.setResizable(false);
-
-		TableColumn tableColumnThree = new TableColumn(table, SWT.NONE);
-		tableColumnThree.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumnThree.setText("Three");
-		tableColumnThree.setResizable(false);
-
-		TableColumn tableColumn_4 = new TableColumn(table, SWT.NONE);
-		tableColumn_4.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_4.setText("One");
-		tableColumn_4.setResizable(false);
-
-		TableColumn tableColumn_5 = new TableColumn(table, SWT.NONE);
-		tableColumn_5.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_5.setText("One");
-		tableColumn_5.setResizable(false);
-
-		TableColumn tableColumn_6 = new TableColumn(table, SWT.NONE);
-		tableColumn_6.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_6.setText("One");
-		tableColumn_6.setResizable(false);
-
-		TableColumn tableColumn_7 = new TableColumn(table, SWT.NONE);
-		tableColumn_7.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_7.setText("One");
-		tableColumn_7.setResizable(false);
-
-		TableColumn tableColumn_8 = new TableColumn(table, SWT.NONE);
-		tableColumn_8.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_8.setText("One");
-		tableColumn_8.setResizable(false);
-
-		TableColumn tableColumn_9 = new TableColumn(table, SWT.NONE);
-		tableColumn_9.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_9.setText("One");
-		tableColumn_9.setResizable(false);
-
-		TableColumn tableColumn_10 = new TableColumn(table, SWT.NONE);
-		tableColumn_10.setWidth(KANJI_DISPLAY_SIZE);
-		tableColumn_10.setText("One");
-		tableColumn_10.setResizable(false);
+		for (int i = 0; i < DISPLAYED_COLUMNS; i++) {
+			TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+			tableColumn.setWidth(KANJI_DISPLAY_SIZE);
+			tableColumn.setResizable(false);
+			tableColumns.add(tableColumn);
+		}
 
 		final TableCursor tableCursor = new TableCursor(table, SWT.NONE);
+		tableCursor.setVisible(true);
 
 		// Hide the TableCursor when the user hits the "CTRL" or "SHIFT" key.
-		// This alows the user to select multiple items in the table.
+		// This allows the user to select multiple items in the table.
 		tableCursor.addKeyListener(new KeyAdapter() {
 			public void keyPressed(final KeyEvent e) {
 				if (e.keyCode == SWT.CTRL || e.keyCode == SWT.SHIFT || (e.stateMask & SWT.CONTROL) != 0
@@ -191,7 +152,8 @@ public class KanjiDisplayTable extends Dialog {
 					row = selection[0];
 				}
 				table.showItem(row);
-				tableCursor.setSelection(row, 0);
+
+				tableCursor.setSelection(row, tableCursor.getColumn());
 				tableCursor.setVisible(true);
 				tableCursor.setFocus();
 			}
