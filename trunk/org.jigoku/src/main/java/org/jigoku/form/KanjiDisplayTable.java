@@ -7,16 +7,16 @@ import lombok.Getter;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.custom.TableCursor;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -101,61 +101,48 @@ public class KanjiDisplayTable extends Dialog {
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
 
-		table = new Table(scrolledComposite, SWT.BORDER | SWT.MULTI);
+		table = new Table(scrolledComposite, SWT.HIDE_SELECTION);
 		table.setLinesVisible(true);
+		table.setHeaderVisible(false);
 
 		List<TableColumn> tableColumns = new ArrayList<TableColumn>();
 
 		for (int i = 0; i < DISPLAYED_COLUMNS; i++) {
-			TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+			TableColumn tableColumn = new TableColumn(table, SWT.CENTER);
 			tableColumn.setWidth(KANJI_DISPLAY_SIZE);
 			tableColumn.setResizable(false);
 			tableColumns.add(tableColumn);
 		}
 
-		final TableCursor tableCursor = new TableCursor(table, SWT.NONE);
-		tableCursor.setVisible(true);
+		table.addListener(SWT.MouseDown, new Listener() {
+			public void handleEvent(final Event event) {
+				Rectangle clientArea = table.getClientArea();
+				Point pt = new Point(event.x, event.y);
+				int index = table.getTopIndex();
+				while (index < table.getItemCount()) {
+					boolean visible = false;
+					final TableItem item = table.getItem(index);
+					for (int i = 0; i < DISPLAYED_COLUMNS; i++) {
+						Rectangle rect = item.getBounds(i);
+						if (rect.contains(pt)) {
+							System.out.println("Item " + index + "-" + i);
+							final int col = i;
+							Display.getDefault().asyncExec(new Runnable() {
+								public void run() {
+									item.setBackground(col, Display.getDefault().getSystemColor(SWT.COLOR_GREEN));
+								}
+							});
 
-		// Hide the TableCursor when the user hits the "CTRL" or "SHIFT" key.
-		// This allows the user to select multiple items in the table.
-		tableCursor.addKeyListener(new KeyAdapter() {
-			public void keyPressed(final KeyEvent e) {
-				if (e.keyCode == SWT.CTRL || e.keyCode == SWT.SHIFT || (e.stateMask & SWT.CONTROL) != 0
-						|| (e.stateMask & SWT.SHIFT) != 0) {
-					tableCursor.setVisible(false);
+						}
+						if (!visible && rect.intersects(clientArea)) {
+							visible = true;
+						}
+					}
+					if (!visible) {
+						return;
+					}
+					index++;
 				}
-			}
-		});
-		// Show the TableCursor when the user releases the "SHIFT" or "CTRL"
-		// key.
-		// This signals the end of the multiple selection task.
-		table.addKeyListener(new KeyAdapter() {
-			public void keyReleased(final KeyEvent e) {
-				if (e.keyCode == SWT.CONTROL && (e.stateMask & SWT.SHIFT) != 0) {
-					return;
-				}
-				if (e.keyCode == SWT.SHIFT && (e.stateMask & SWT.CONTROL) != 0) {
-					return;
-				}
-				if (e.keyCode != SWT.CONTROL && (e.stateMask & SWT.CONTROL) != 0) {
-					return;
-				}
-				if (e.keyCode != SWT.SHIFT && (e.stateMask & SWT.SHIFT) != 0) {
-					return;
-				}
-
-				TableItem[] selection = table.getSelection();
-				TableItem row;
-				if (selection.length == 0) {
-					row = table.getItem(table.getTopIndex());
-				} else {
-					row = selection[0];
-				}
-				table.showItem(row);
-
-				tableCursor.setSelection(row, tableCursor.getColumn());
-				tableCursor.setVisible(true);
-				tableCursor.setFocus();
 			}
 		});
 
