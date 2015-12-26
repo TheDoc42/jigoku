@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.*?>
+<BorderPane xmlns="http://javafx.com/javafx/8"
+			xmlns:fx="http://javafx.com/fxml/1"
+			fx:controller="org.jigoku.form.Controller"
+			maxHeight="-Infinity"
+			maxWidth="-Infinity"
+			minHeight="200"
+			minWidth="200"
+			prefHeight="400.0"
+			prefWidth="600.0">
+	<center>
+		<ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+			<content>
+				<FlowPane>
+					<children>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+						<WebView prefHeight="180.0" prefWidth="180.0">
+							<FlowPane.margin>
+								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+							</FlowPane.margin>
+						</WebView>
+					</children>
+				</FlowPane>
+			</content>
+		</ScrollPane>
+	</center>
+	<bottom>
+		<ButtonBar>
+			<buttons>
+				<Button text="All"/>
+				<Button text="Learned"/>
+				<Button text="To review"/>
+				<Button text="Start test"/>
+			</buttons>
+			<BorderPane.margin>
+				<Insets/>
+			</BorderPane.margin>
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+			</padding>
+		</ButtonBar>
+	</bottom>
+</BorderPane>
