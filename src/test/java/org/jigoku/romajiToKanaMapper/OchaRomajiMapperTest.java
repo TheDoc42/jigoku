@@ -1,7 +1,8 @@
-package org.jigoku.inputmapper;
+package org.jigoku.romajiToKanaMapper;
 
 import junit.framework.Assert;
 
+import org.jigoku.romajiToKanaMapper.impl.OchaRomajiMapper;
 import org.junit.Test;
 
 public class OchaRomajiMapperTest {

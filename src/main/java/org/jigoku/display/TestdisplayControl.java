@@ -6,16 +6,16 @@ import java.awt.event.WindowEvent;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jigoku.FlashCard;
-import org.jigoku.Test;
+import org.jigoku.Game;
 import org.jigoku.structure.Observable;
 import org.jigoku.structure.Observer;
 
 public class TestdisplayControl extends TestDisplay implements Observer {
 	public static final long serialVersionUID = 2L;
 
-	private final Test test;
+	private final Game test;
 
-	public TestdisplayControl(final Test test) {
+	public TestdisplayControl(final Game test) {
 		super();
 		// initComponents();
 		this.test = test;
@@ -37,15 +37,15 @@ public class TestdisplayControl extends TestDisplay implements Observer {
 		StringBuilder furigana = new StringBuilder("<tr>");
 		StringBuilder characters = new StringBuilder("<tr>");
 
-		for (int i = 0; i < card.getDisplaychars().size(); i++) {
+		for (int i = 0; i < card.getDisplayChars().size(); i++) {
 
 			// TODO: limit furigana to untrained characters
 
 			furigana.append("<td><center>");
-			furigana.append(card.getDisplaychars().get(i).getFurigana());
+			furigana.append(card.getDisplayChars().get(i).getFurigana());
 			furigana.append("</center></td>");
 			characters.append("<td><font size=+5>");
-			characters.append(card.getDisplaychars().get(i).getOriginal());
+			characters.append(card.getDisplayChars().get(i).getOriginal());
 			characters.append("</font></td>");
 		}
 
@@ -58,7 +58,7 @@ public class TestdisplayControl extends TestDisplay implements Observer {
 
 	}
 
-	private void updateDisplay(final Test test) {
+	private void updateDisplay(final Game test) {
 		setQuestion(formatQuestion(test.getCard()));
 		setHint(test.getHint());
 		setAnswer(StringUtils.EMPTY);

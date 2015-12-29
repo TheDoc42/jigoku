@@ -30,7 +30,7 @@ public final class JiGoku {
 		List<Kanji> testedKanji =  resourcePool.getKanjiList().subList(0, LENGTH_OF_RUN); 
 
 		final List<FlashCard> testCards = (new CardStack(testedKanji, resourcePool.getFlashCards(), LENGTH_OF_RUN)).getFlashcards();
-		final Test test =  new Test(testCards);
+		final Game test =  new Game(testCards);
 
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {

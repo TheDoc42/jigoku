@@ -1,16 +1,15 @@
 package org.jigoku;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lombok.Getter;
-
-import org.jigoku.inputmapper.BaseRomajiMapper;
-import org.jigoku.inputmapper.OchaRomajiMapper;
+import org.jigoku.romajiToKanaMapper.RomajiToKanaMapper;
+import org.jigoku.romajiToKanaMapper.impl.OchaRomajiMapper;
 import org.jigoku.structure.Observable;
 import org.jigoku.structure.Observer;
 
-public class Test implements Observable {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Game implements Observable {
 
 	@Getter
 	private int index = 0;
@@ -22,11 +21,11 @@ public class Test implements Observable {
 	private int successCount = 0;
 
 	private final List<FlashCard> cards;
-	private final BaseRomajiMapper romajimapper = new OchaRomajiMapper();
+	private final RomajiToKanaMapper romajimapper = new OchaRomajiMapper();
 	private final List<Observer> observers = new ArrayList<Observer>();
 	private int errorCount = 0;
 
-	public Test(final List<FlashCard> testCards) {
+	public Game(final List<FlashCard> testCards) {
 		this.cards = testCards;
 		card = cards.get(index);
 	}
@@ -44,7 +43,7 @@ public class Test implements Observable {
 		if (index < cards.size()) {
 			card = cards.get(index);
 		} else {
-			// Test is done
+			// Game is done
 		}
 
 		notifyObservers();
@@ -82,7 +81,7 @@ public class Test implements Observable {
 
 	/**
 	 * Returns the success rate of the running test.
-	 * 
+	 *
 	 * @return success rate in percents.
 	 */
 	public int getSuccessrate() {

@@ -1,8 +1,8 @@
-package org.jigoku.inputmapper;
+package org.jigoku.romajiToKanaMapper;
 
 /**
  * Maps a string input from romaji to hiragana.
  */
-public interface StringMapper {
+public interface RomajiToKanaMapper {
 	String map(final String input);
 }

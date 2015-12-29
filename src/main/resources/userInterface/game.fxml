@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox
+		maxHeight="-Infinity"
+		maxWidth="-Infinity"
+		minHeight="-Infinity"
+		minWidth="-Infinity"
+		prefHeight="400.0"
+		prefWidth="600.0"
+		xmlns="http://javafx.com/javafx/8"
+		xmlns:fx="http://javafx.com/fxml/1"
+		fx:controller="org.jigoku.form.Controller">
+	<children>
+		<Label prefHeight="142.0" prefWidth="612.0" text="Label"/>
+		<TextField>
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+			</padding>
+			<VBox.margin>
+				<Insets left="10.0" top="10.0"/>
+			</VBox.margin>
+		</TextField>
+		<Label text="Progress">
+			<VBox.margin>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+			</VBox.margin>
+		</Label>
+		<ProgressBar prefHeight="18.0" prefWidth="638.0" progress="0.0">
+			<VBox.margin>
+				<Insets bottom="10.0" top="10.0"/>
+			</VBox.margin>
+		</ProgressBar>
+		<CheckBox mnemonicParsing="false" text="Enable hints">
+			<VBox.margin>
+				<Insets bottom="10.0" top="10.0"/>
+			</VBox.margin>
+		</CheckBox>
+		<CheckBox mnemonicParsing="false" text="Show translation">
+			<VBox.margin>
+				<Insets bottom="10.0" top="10.0"/>
+			</VBox.margin>
+		</CheckBox>
+	</children>
+	<padding>
+		<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+	</padding>
+</VBox>

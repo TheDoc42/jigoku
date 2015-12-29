@@ -58,7 +58,7 @@ public class TestDisplay extends javax.swing.JFrame implements DisplayQuestionsI
 		testProgressDisplay.setMaximum(50);
 		testProgressDisplay.setValue(27);
 
-		labelTestProgressDisplay.setText("Test Progress");
+		labelTestProgressDisplay.setText("Game Progress");
 
 		questionDisplay.setText("jLabel1");
 

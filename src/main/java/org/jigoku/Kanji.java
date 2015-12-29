@@ -1,15 +1,14 @@
 package org.jigoku;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * Represents a kanji with meta data to link it to the search system.
  */
 @Data
 public class Kanji {
-
 	private final String kanji;
 	private final int bushu;
 	private final int grade;

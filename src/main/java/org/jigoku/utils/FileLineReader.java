@@ -1,14 +1,13 @@
 package org.jigoku.utils;
 
+import lombok.Getter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
-import lombok.Getter;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Reads a file into a list of lines.
@@ -16,7 +15,9 @@ import org.slf4j.LoggerFactory;
 public class FileLineReader {
 
 	@Getter
-	private final ArrayList<String> lines = new ArrayList<String>();
+	private final ArrayList<String> lines = new ArrayList<>();
+
+	private static final boolean displayParseLog = false;
 
 	public FileLineReader(final String filename) {
 		final Logger logger = LoggerFactory.getLogger(getClass());
@@ -28,7 +29,9 @@ public class FileLineReader {
 			BufferedReader inBufReader = new BufferedReader(inReader);
 			String line;
 			while ((line = inBufReader.readLine()) != null) {
-				logger.info(line);
+				if (displayParseLog) {
+					logger.info(line);
+				}
 				line = line.replace("\"", "");
 				this.lines.add(line);
 			}

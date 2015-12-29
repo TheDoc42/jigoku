@@ -3,7 +3,7 @@ package org.jigoku;
 import lombok.Data;
 
 /**
- * Represents a single character with it's associated furigana.
+ * Represents a single character with its associated furigana.
  */
 @Data
 public class JapChar {
