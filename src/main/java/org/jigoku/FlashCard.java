@@ -1,6 +1,8 @@
 package org.jigoku;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
+import org.jigoku.romajiToKanaMapper.RomajiToKanaMapper;
 
 import java.util.ArrayList;
 
@@ -14,4 +16,8 @@ public class FlashCard {
 	private final String firstCharRow;
 	private String solution;
 	private ArrayList<JapChar> displayChars = new ArrayList<>();
+
+	public boolean checkSolution(String string, RomajiToKanaMapper mapper) {
+		return StringUtils.equals(solution, mapper.map(string));
+	}
 }
