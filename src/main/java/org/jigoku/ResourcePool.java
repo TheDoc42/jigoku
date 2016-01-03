@@ -1,6 +1,7 @@
 package org.jigoku;
 
 import lombok.Getter;
+import lombok.extern.java.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.jigoku.utils.FileLineReader;
 
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Prepares a list of kanjis and flashcards extracted from the resource files.
  */
+@Log
 public class ResourcePool {
 
 	// 0 - Kanji
@@ -97,6 +99,7 @@ public class ResourcePool {
 
 			flashCards.add(flashCard);
 		}
+		log.info("We loaded " + flashCards.size() + " Flashcards");
 	}
 
 	private void initWordPartsForFlashCards(final String fileName) {
@@ -176,6 +179,8 @@ public class ResourcePool {
 					new Integer(fields[KANJI_INFO_INDEX_KANJI_TO_KANA]), new Integer(fields[KANJI_INFO_INDEX_JLPT]),
 					new Integer(fields[KANJI_INFO_INDEX_KANJI_OF_WORDS_INDEX]), meanings));
 		}
+
+		log.info("We loaded " + kanjiList.size() + " Kanji");
 	}
 
 	private boolean isDisplayOnlyKana(final String field) {
